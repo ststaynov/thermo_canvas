@@ -29,20 +29,20 @@ function handleKeyPress(event)
 
 function start() {
 
-  renderer = new THREE.WebGLRenderer();
+  renderer = new THREE.WebGLRenderer({});
 
   renderer.setSize( window.innerWidth, window.innerHeight );
-  renderer.setClearColor( new THREE.Color( 0x000000 ) );
+  //renderer.setClearColor( new THREE.Color( 0x0000ff ) );
 
 	scene = new THREE.Scene();
 
 	camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
   cameraTarget = new THREE.Vector3( 0, 0, 0 );
 
-  texture = THREE.ImageUtils.loadTexture( 'static/canvas/images/snow.png' );
+  texture = THREE.ImageUtils.loadTexture( '../static/canvas/images/snow/snow_optimised.png' );
 
 	// create particle variables
-	var particleCount = 10000,
+	var particleCount = 1000,
     width = 100,
     height = particleSystemHeight,
     depth = 100,
