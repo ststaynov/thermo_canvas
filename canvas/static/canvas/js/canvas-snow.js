@@ -1,8 +1,8 @@
 /**
-* WeatherSim.js
-* Simulates percipitation in three.js
-* @author Thomas Kearney
-*/
+ * WeatherSim.js
+ * Simulates percipitation in three.js
+ * @author Thomas Kearney
+ */
 
 var renderer,
     scene,
@@ -20,110 +20,121 @@ var renderer,
     onParametersUpdate,
     texture;
 
-function handleKeyPress(event)
-{
-  var ch = getChar(event);
-  if (cameraControl(camera, ch)) return;
+function handleKeyPress(event) {
+    var ch = getChar(event);
+    if (cameraControl(camera, ch)) return;
 }
 
 
 function start() {
 
-  renderer = new THREE.WebGLRenderer({});
+    renderer = new THREE.WebGLRenderer({alpha: true });
 
-  renderer.setSize( window.innerWidth, window.innerHeight );
-  //renderer.setClearColor( new THREE.Color( 0x0000ff ) );
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor( new THREE.Color( 0x000000 ));
 
-	scene = new THREE.Scene();
+    scene = new THREE.Scene();
 
-	camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
-  cameraTarget = new THREE.Vector3( 0, 0, 0 );
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+    cameraTarget = new THREE.Vector3(0, 0, 0);
 
-  texture = THREE.ImageUtils.loadTexture( '../static/canvas/images/snow/snow_optimised.png' );
+    texture = THREE.ImageUtils.loadTexture('../static/canvas/images/snow/snow_optimised.png');
 
-	// create particle variables
-	var particleCount = 1000,
-    width = 100,
-    height = particleSystemHeight,
-    depth = 100,
-    parameters = {
-      color: 0xFFFFFF,
-      height: particleSystemHeight,
-      radiusX: 2.5,
-      radiusZ: 2.5,
-      size: 100,
-      scale: 4.0,
-      opacity: 0.4,
-      speedH: 1.0,
-      speedV: 1.0
+    // create particle variables
+    var particleCount = 1000,
+        width = 100,
+        height = particleSystemHeight,
+        depth = 100,
+        parameters = {
+            color: 0xFFFFFF,
+            height: particleSystemHeight,
+            radiusX: 2.5,
+            radiusZ: 2.5,
+            size: 100,
+            scale: 4.0,
+            opacity: 0.7,
+            speedH: 1.0,
+            speedV: 1.0
 
-  },
-  geometry = new THREE.Geometry(),
-  pMaterial = new THREE.ShaderMaterial({
-    uniforms: {
-      color:  { type: 'c', value: new THREE.Color( parameters.color ) },
-      height: { type: 'f', value: parameters.height },
-      elapsedTime: { type: 'f', value: 0 },
-      radiusX: { type: 'f', value: parameters.radiusX },
-      radiusZ: { type: 'f', value: parameters.radiusZ },
-      size: { type: 'f', value: parameters.size },
-      scale: { type: 'f', value: parameters.scale },
-      opacity: { type: 'f', value: parameters.opacity },
-      texture: { type: 't', value: texture },
-      speedH: { type: 'f', value: parameters.speedH },
-      speedV: { type: 'f', value: parameters.speedV }
+        },
+        geometry = new THREE.Geometry(),
+        pMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                color: {type: 'c', value: new THREE.Color(parameters.color)},
+                height: {type: 'f', value: parameters.height},
+                elapsedTime: {type: 'f', value: 0},
+                radiusX: {type: 'f', value: parameters.radiusX},
+                radiusZ: {type: 'f', value: parameters.radiusZ},
+                size: {type: 'f', value: parameters.size},
+                scale: {type: 'f', value: parameters.scale},
+                opacity: {type: 'f', value: parameters.opacity},
+                texture: {type: 't', value: texture},
+                speedH: {type: 'f', value: parameters.speedH},
+                speedV: {type: 'f', value: parameters.speedV}
 
-    },
-    vertexShader: document.getElementById( 'WeatherSim_vs' ).textContent,
-    fragmentShader: document.getElementById( 'WeatherSim_fs' ).textContent,
-    blending: THREE.AdditiveBlending,
-    transparent: true,
-    depthTest: false
-  });
+            },
+            vertexShader: document.getElementById('WeatherSim_vs').textContent,
+            fragmentShader: document.getElementById('WeatherSim_fs').textContent,
+            blending: THREE.AdditiveBlending,
+            transparent: true,
+            depthTest: false
+        });
 
-	// create individual geometry
-	for( p=0; p < particleCount; p++ ){
+    // create individual geometry
+    for (p = 0; p < particleCount; p++) {
 
-		var particle = new THREE.Vector3(
-      rand( width ),
-      Math.random() * height,
-      rand( depth )
-    );
+        var particle = new THREE.Vector3(
+            rand(width),
+            Math.random() * height,
+            rand(depth)
+        );
 
-		// add to geometry
-		geometry.vertices.push(particle);
-	}
+        // add to geometry
+        geometry.vertices.push(particle);
+    }
 
-	// create system
-	particleSystem = new THREE.PointCloud( geometry, pMaterial );
-  particleSystem.position.y = -height/2;
+    // create system
+    particleSystem = new THREE.PointCloud(geometry, pMaterial);
+    particleSystem.position.y = -height / 2;
 
-	// add to scene
-	scene.add(particleSystem);
+    // add to scene
+    scene.add(particleSystem);
 
-  clock = new THREE.Clock();
+    clock = new THREE.Clock();
 
-  document.body.appendChild( renderer.domElement );
+    document.body.appendChild(renderer.domElement);
 
-  function rand( v ) {
-    return (v * (Math.random() - 0.5));
-  }
+    function rand(v) {
+        return (v * (Math.random() - 0.5));
+    }
 
-  var render = function() {
+    window.addEventListener('resize', onWindowResize, false);
 
-  	requestAnimationFrame(render);
+    function onWindowResize() {
 
-    var delta = clock.getDelta();
-    var elapsedTime = clock.getElapsedTime();
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
 
-    particleSystem.material.uniforms.elapsedTime.value = elapsedTime * 10;
-    camera.position.set( cameraX, cameraY, cameraZ );
-    camera.lookAt( cameraTarget );
+        renderer.setSize(window.innerWidth, window.innerHeight);
 
-    renderer.clear();
-  	// draw!
-  	renderer.render(scene, camera);
-  };
+    }
 
-	render();
+
+    var render = function () {
+
+        requestAnimationFrame(render);
+
+        var delta = clock.getDelta();
+        var elapsedTime = clock.getElapsedTime();
+
+        particleSystem.material.uniforms.elapsedTime.value = elapsedTime * 10;
+        camera.position.set(cameraX, cameraY, cameraZ);
+        camera.lookAt(cameraTarget);
+
+        renderer.clear();
+        // draw!
+        renderer.render(scene, camera);
+    };
+
+    render();
 }
