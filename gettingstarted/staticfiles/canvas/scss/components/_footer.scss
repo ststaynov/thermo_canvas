@@ -1,0 +1,44 @@
+
+.c-container-footer {
+  width: 100%;
+  max-width: 1020px;
+  height: 40px;
+  position: fixed;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  z-index: 10;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.c-social-container {
+  width: 33.33333%;
+  height: 100%;
+  display: inline-block;
+}
+
+.e-social-item {
+  margin-top: 10px;
+  display: inline-block;
+  margin-left: 11px;
+
+  &:nth-of-type(3) {
+    margin-left: 6px;
+  }
+
+  img {
+    width: 22px;
+  }
+}
+
+#linkedin {
+  width: 20px;
+  padding-bottom: 3px;
+}
+
+#pinterest {
+  padding-bottom: 3px;
+}

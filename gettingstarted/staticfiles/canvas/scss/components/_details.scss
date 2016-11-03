@@ -1,0 +1,19 @@
+
+.c-details {
+  padding-top: 150px;
+  font-size: 26px;
+  line-height: 42px;
+  text-align: center;
+  color: #fff;
+
+  display: none;
+  opacity: 0;
+
+  &::after {
+    content: "\f0a3";
+    font-family: 'icomoon';
+  }
+  p {
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,149 @@
+
+.c-threesixty-bg {
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  position: absolute;
+  top: 150px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: url(../images/idea-dashed-circle.png) no-repeat;
+  background-size: 100%;
+  @include transition(1.5s all);
+
+  &.shrink {
+    @include transform(scale(0));
+  }
+}
+
+.threesixty-container {
+  width: 150px;
+  height: 200px;
+  margin: auto;
+  position: absolute;
+  top: 150px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  .threesixty {
+    position: absolute;
+    overflow: visible;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    @include transition(all 1s);
+
+    &.invisible {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  .e-stoyan-baloon {
+    width: 120px;
+    height: 80px;
+    position: absolute;
+    top: -83px;
+    left: 82px;
+    background: url(../images/think.svg) no-repeat;
+    opacity: 0;
+    pointer-events: none;
+
+    &.visible {
+      opacity: 1;
+    }
+  }
+
+  .threesixty .threesixty_images {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .threesixty .threesixty_images img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: auto;
+  }
+
+  .threesixty .threesixty_images img.previous-image {
+    visibility: hidden;
+    width: 0;
+  }
+
+  .threesixty .threesixty_images img.current-image {
+    width: 100%;
+    visibility: visible;
+  }
+
+  .threesixty .spinner {
+    width: 60px;
+    display: block;
+    margin: 0 auto;
+    height: 30px;
+    background: #333;
+    background: rgba(0, 0, 0, 0.7);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+  .threesixty .spinner span {
+    font-family: Arial, "MS Trebuchet", sans-serif;
+    font-size: 12px;
+    font-weight: bolder;
+    color: #FFF;
+    text-align: center;
+    line-height: 30px;
+    display: block;
+  }
+
+  .threesixty .nav_bar {
+    position: absolute;
+    height: 100%;
+    left: 26px;
+    z-index: 11;
+  }
+
+  .threesixty .nav_bar a {
+    display: block;
+    width: 32px;
+    height: 32px;
+    float: left;
+    text-indent: -99999px;
+  }
+
+  .threesixty .nav_bar a.nav_bar_play {
+    height: 100%;
+    background-position: 0 0;
+  }
+
+  .threesixty .nav_bar a.nav_bar_previous {
+    height: 100%;
+    background-position: 0 -73px;
+  }
+
+  .threesixty .nav_bar a.nav_bar_stop {
+    height: 100%;
+    background-position: 0 -37px;
+  }
+
+  .threesixty .nav_bar a.nav_bar_next {
+    height: 100%;
+    background-position: 0 -104px;
+  }
+}
+
+@include tablet() {
+  .c-threesixty-bg {
+    width: 300px;
+    height: 300px;
+    background: url(../images/idea-dashed-circle-big.png) no-repeat;
+  }
+}

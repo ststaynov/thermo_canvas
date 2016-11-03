@@ -1,0 +1,88 @@
+
+* {
+   -moz-user-select: none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+
+   /*
+     Introduced in IE 10.
+     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+   */
+   -ms-user-select: none;
+   user-select: none;
+}
+
+body {
+  overflow: hidden;
+}
+
+.c-relative-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+}
+
+.c-main-content {
+  width: calc(100% - 42px);
+  height: calc(100% - 50px);
+  margin: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+
+  &.invisible {
+    @include transition(all 2s);
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.c-logo {
+  width: 45px;
+  height: 15px;
+  background: url(../images/logo_b.png) no-repeat;
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+
+.c-cv {
+  width: 45px;
+  height: 30px;
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  font-size: 42px;
+  font-weight: bold;
+  //line-height: 0;
+  text-align: center;
+  z-index: 10;
+
+  a {
+    //text-decoration: none;
+    color: #000;
+  }
+}
+
+@include desktop() {
+  .c-main-content {
+    width: calc(100% - 150px);
+    height: calc(100% - 150px);
+  }
+}
+
+@include below($breakpoint-mobile) {
+  .c-logo {
+    top: 40px;
+    left: -10px;
+  }
+  .c-cv {
+    top: auto;
+    bottom: 25px;
+    left: -10px;
+    right: auto;
+  }
+}
