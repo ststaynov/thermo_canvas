@@ -1,0 +1,14 @@
+
+.c-game-rules {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  pointer-events: none;
+  text-align: center;
+  font-size: 26px;
+
+  &.invisible {
+    opacity: 0;
+  }
+}

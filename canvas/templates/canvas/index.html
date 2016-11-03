@@ -1,0 +1,43 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thermo painting</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
+
+{#    <meta http-equiv="Cache-control" content="no-cache">#}
+{#    <meta http-equiv="Expires" content="-1">#}
+
+    <link rel="icon" type="image/png" href="{% static "canvas/images/favicon/favicon-32x32.png" %}" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="{% static "canvas/images/favicon/favicon-16x16.png" %}" sizes="16x16"/>
+
+    <link rel="stylesheet" href="{% static "canvas/css/normalize.mind41d.css" %}">
+    <link rel="stylesheet" href="{% static "canvas/css/base.css" %}">
+{#    <link rel="stylesheet" href="{% static "animation/css/base.min.css" %}">#}
+    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+    <script src="{% static "canvas/js/TweenLite.min.js" %}"></script>
+    <script src="{% static "canvas/js/CSSPlugin.min.js" %}"></script>
+    <script src="{% static "canvas/js/Draggable.min.js" %}"></script>
+    <script src="{% static "canvas/js/dragable.min.js" %}"></script>
+    <script src="{% static "canvas/js/Detector.min.js" %}"></script>
+    <script src="{% static "canvas/js/three.min.js" %}"></script>
+    <script src="{% static "canvas/js/OrbitControls.min.js" %}"></script>
+    <link href='https://fonts.googleapis.com/css?family=Wire+One' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+</head>
+
+<body>
+
+
+<main class="c-main-content">
+
+Painting goes here
+</main>
+
+
+</body>
+<script src="{% static "canvas/js/main.min.js" %}"></script>
+<script src="{% static "canvas/js/canvas.min.js" %}"></script>
+</html>

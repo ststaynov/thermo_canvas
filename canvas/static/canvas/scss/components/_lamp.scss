@@ -1,0 +1,111 @@
+.c-lamp {
+  width: .7rem;
+  height: 25rem;
+  position: relative;
+  top: -500px;
+  margin: 0 auto;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+  background-repeat: no-repeat;
+  background-size: .15rem 25rem, .4rem .8rem, .7rem 2rem;
+  background-position: 50% 0, .19rem 23.3rem, 0 23.8rem;
+
+  &:before {
+    content: '';
+    width: 4rem;
+    height: 4rem;
+    position: absolute;
+    left: -1.65rem;
+    bottom: -4rem;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.03);
+    box-shadow: inset 2px -2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+  }
+
+  .е-lamp-inner {
+    width: 0;
+    height: 1.5rem;
+    top: 25rem;
+    left: .25rem;
+    border-right: .2rem solid rgba(0, 0, 0, 0.1);
+    position: absolute;
+
+    &:before {
+      width: .9rem;
+      height: .9rem;
+      position: absolute;
+      content: '';
+      top: 1.5rem;
+      left: -.35rem;
+      border-radius: 50%;
+      border: .2rem solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 0px 50px rgba(0, 0, 0, 0);
+    }
+  }
+
+  &.on {
+    cursor: pointer;
+
+    &:before {
+      @include transition(1s all);
+      @include animation(flicker 4s infinite);
+      background: rgba(255, 153, 0, .78);
+      box-shadow: 0px 2px 10px rgba(255, 153, 0, 0.3), 0px 5px 50px rgba(255, 153, 0, 0.3), 0px 8px 80px rgba(255, 153, 0, 0.2), 0px 8px 120px rgba(255, 153, 0, 0.2);
+    }
+  }
+  &.off {
+    @include transition(2s all);
+    opacity: 0;
+  }
+
+  &.cracked {
+
+    &:before {
+      background: url(../images/glass-crack.png) no-repeat;
+      background-size: 100%;
+    }
+  }
+
+  .e-text {
+    width: 215px;
+    height: 50px;
+    top: 22rem;
+    position: absolute;
+    left: 25px;
+    text-align: right;
+    font-size: 22px;
+    background: url(../images/text-line.png) no-repeat;
+    background-size: 100%;
+  }
+}
+
+@include keyframes(flicker) {
+  0% {
+    box-shadow: 0px 2px 10px rgba(255, 153, 0, 0.3), 0px 5px 50px rgba(255, 153, 0, 0.3), 0px 8px 80px rgba(255, 153, 0, 0.2), 0px 8px 120px rgba(255, 153, 0, 0.2);
+  }
+  25% {
+    box-shadow: 0px 2px 10px rgba(255, 153, 0, 0.8), 0px 5px 50px rgba(255, 153, 0, 0.8), 0px 8px 80px rgba(255, 153, 0, 0.6), 0px 8px 120px rgba(255, 153, 0, 0.6);
+  }
+  50% {
+    box-shadow: 0px 2px 10px rgba(255, 153, 0, 0.3), 0px 5px 50px rgba(255, 153, 0, 0.3), 0px 8px 80px rgba(255, 153, 0, 0.2), 0px 8px 120px rgba(255, 153, 0, 0.2);
+  }
+  75% {
+    box-shadow: 0px 2px 10px rgba(255, 153, 0, 0.8), 0px 5px 50px rgba(255, 153, 0, 0.8), 0px 8px 80px rgba(255, 153, 0, 0.6), 0px 8px 120px rgba(255, 153, 0, 0.6);
+  }
+  100% {
+    box-shadow: 0px 2px 10px rgba(255, 153, 0, 0.3), 0px 5px 50px rgba(255, 153, 0, 0.3), 0px 8px 80px rgba(255, 153, 0, 0.2), 0px 8px 120px rgba(255, 153, 0, 0.2);
+  }
+}
+
+@include below($breakpoint-mobile) {
+  .c-lamp {
+    .e-text {
+      left: -7px;
+      transform: scale(0.9);
+    }
+  }
+}
