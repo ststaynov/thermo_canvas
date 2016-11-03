@@ -11,4 +11,5 @@ import canvas.views
 
 urlpatterns = [
     url(r'^$', 'canvas.views.index'),
+    url(r'^snow/', 'canvas.views.snow'),
 ]
