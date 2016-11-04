@@ -1,0 +1,68 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thermo painting</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
+
+{#    <meta http-equiv="Cache-control" content="no-cache">#}
+{#    <meta http-equiv="Expires" content="-1">#}
+
+    <link rel="icon" type="image/png" href="{% static "canvas/images/favicon/favicon-32x32.png" %}" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="{% static "canvas/images/favicon/favicon-16x16.png" %}" sizes="16x16"/>
+
+    <link rel="stylesheet" href="{% static "canvas/css/normalize.mind41d.css" %}">
+    <link rel="stylesheet" href="{% static "canvas/css/base.css" %}">
+{#    <link rel="stylesheet" href="{% static "animation/css/base.min.css" %}">#}
+{#    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>#}
+{#    <script src="{% static "canvas/js/Detector.min.js" %}"></script>#}
+    <script src="{% static "canvas/js/three.min.js" %}"></script>
+    <link href='https://fonts.googleapis.com/css?family=Wire+One' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+</head>
+
+<body>
+
+
+{#		<canvas id='theCanvas' width='600' height='400'>#}
+{#		Please use a browser that supports 'canvas'#}
+{#		</canvas>#}
+
+        <script src="{% static "canvas/js/canvas-rain.js" %}"></script>
+		<script>window.onload = start</script>
+
+		<script type="x-shader/x-vertex" id="WeatherSim_vs">
+			uniform float radiusX;
+			uniform float radiusZ;
+			uniform float size;
+			uniform float scale;
+			uniform float height;
+			uniform float elapsedTime;
+			uniform float speedH;
+			uniform float speedV;
+			void main() {
+				vec3 pos = position;
+{#				pos.x += cos((elapsedTime + position.z) * 0.25 * speedH) * radiusX;#}
+				pos.y = mod(pos.y - elapsedTime * speedV, height);
+{#				pos.z += sin((elapsedTime + position.x) * 0.25 * speedH) * radiusZ;#}
+				vec4 mvPosition = modelViewMatrix * vec4( pos, 1.0 );
+				gl_PointSize = size * ( scale / length( mvPosition.xyz ) );
+				gl_Position = projectionMatrix * mvPosition;
+			}
+		</script>
+
+		<script type="x-shader/x-fragment" id="WeatherSim_fs">
+			uniform vec3 color;
+			uniform float opacity;
+			uniform sampler2D texture;
+			void main() {
+				vec4 texColor = texture2D( texture, gl_PointCoord );
+				gl_FragColor = texColor * vec4( color, opacity );
+			}
+		</script>
+
+</body>
+
+</html>

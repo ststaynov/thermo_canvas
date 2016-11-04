@@ -7,3 +7,7 @@ def index(request):
 
 def snow(request):
     return render_to_response('canvas/snow.html', {})
+
+
+def rain(request):
+    return render_to_response('canvas/rain.html', {})
